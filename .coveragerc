@@ -1,0 +1,6 @@
+[run]
+source = ./kms_vault
+omit = */tests.py
+
+[report]
+omit = */tests.py

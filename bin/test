@@ -1,0 +1,12 @@
+#!/bin/bash
+
+mkdir -p reports
+
+if [[ -f secrets.env ]]; then
+    set -a
+    source ./secrets.env
+    set +a
+fi
+
+echo -e "\x1b[1;32mRunning Tests\x1b[0m"
+tox -- $@

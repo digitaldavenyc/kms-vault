@@ -1,0 +1,29 @@
+[flake8]
+
+per-file-ignores =
+    # Make all docstrings in tests modules optional but ensure existing docstrings
+    # are correctly formatted
+    *test*.py: D1
+    *migration*.py: E501, D1, N806
+
+max-line-length = 90
+
+ignore =
+    D1 # Make all docstrings optional
+
+exclude =
+    .svn
+    CVS
+    .bzr
+    .hg
+    .git
+    __pycache__
+    .tox
+    .eggs
+    *.egg
+    venv
+    aws
+    bin
+    reports
+
+radon-max-cc = 8

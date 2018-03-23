@@ -1,5 +1,6 @@
 #!/bin/bash
 
+source venv/bin/activate
 mkdir -p reports
 
 if [[ -f secrets.env ]]; then
@@ -7,6 +8,6 @@ if [[ -f secrets.env ]]; then
     source ./secrets.env
     set +a
 fi
-
 echo -e "\x1b[1;32mRunning Tests\x1b[0m"
 tox -- $@
+deactivate

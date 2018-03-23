@@ -1,4 +1,6 @@
 #!/bin/bash
+
+source venv/bin/activate
 mkdir -p reports
 
 echo -e "\x1b[1;32mCoverage Report\x1b[0m"

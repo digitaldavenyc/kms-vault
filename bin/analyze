@@ -1,4 +1,6 @@
 #!/bin/bash
+
+source venv/bin/activate
 mkdir -p reports
 
 exclude="*/tests/*,*/tests.py,*/test*.py,*/migrations/*"

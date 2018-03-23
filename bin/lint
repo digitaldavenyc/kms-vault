@@ -1,5 +1,6 @@
 #!/bin/bash
 
+source venv/bin/activate
 mkdir -p reports
 
 total_errors=`flake8 --count -qq`

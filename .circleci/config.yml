@@ -19,6 +19,11 @@ jobs:
       - run:
           name: Run the tests
           command: ./bin/test
+      - run:
+          name: Report coverage
+          command: |
+            source venv/bin/activate
+            codecov
       - save_cache:
           key: kms-vault-tox-{{ .Branch }}-{{ checksum "requirements.txt" }}
           paths:

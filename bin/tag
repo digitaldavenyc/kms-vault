@@ -1,0 +1,16 @@
+#!/bin/bash
+
+version=$1
+shift
+
+short_name=$1
+shift
+
+git tag $version -m $short_name
+git push --tags
+
+python setup.py sdist
+
+git commit -am "Version bump $version: $short_name"
+
+git push

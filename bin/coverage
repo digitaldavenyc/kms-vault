@@ -1,0 +1,8 @@
+#!/bin/bash
+mkdir -p reports
+
+echo -e "\x1b[1;32mCoverage Report\x1b[0m"
+coverage combine ./reports/*.coverage
+coverage report -m
+coverage xml -o reports/coverage.xml
+

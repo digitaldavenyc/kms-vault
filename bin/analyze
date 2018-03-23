@@ -1,0 +1,15 @@
+#!/bin/bash
+mkdir -p reports
+
+exclude="*/tests/*,*/tests.py,*/test*.py,*/migrations/*"
+
+echo -e "\n\x1b[1;32mCyclomatic Complexity\x1b[0m"
+radon cc outlethub -s --total-average -e $exclude
+radon cc outlethub -s -a -e $exclude --json > reports/cc.json
+
+echo -e "\n\x1b[1;32mMaintainabilty Index\x1b[0m"
+radon mi outlethub -s -e $exclude
+radon mi outlethub -s -e $exclude --json > reports/mi.json
+
+# Raw Code Stats
+radon raw outlethub -s -e $exclude --json > reports/raw.json

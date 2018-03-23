@@ -1,0 +1,16 @@
+#!/bin/bash
+
+mkdir -p reports
+
+total_errors=`flake8 --count -qq`
+
+flake8 --statistics | flake8chart --chart-type=BAR --chart-output=reports/flake8.svg --chart-title="OutletHub Style Errors"
+
+# exit zero until we have a clean code base
+# flake8 $@
+
+base=`git merge-base origin/master HEAD`
+head=`git rev-parse HEAD`
+
+git diff -p $base $head | flake8 --diff --count
+exit $?

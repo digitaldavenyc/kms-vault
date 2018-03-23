@@ -1,0 +1,63 @@
+version: 2
+jobs:
+  test:
+    docker:
+      - image: reelio/kms-vault:ci
+    environment:
+      BASH_ENV: ~/.bashrc
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+            - kms-vault-tox-{{ .Branch }}-{{ checksum "requirements.txt" }}
+      - restore_cache:
+          keys:
+            - kms-vault-{{ .Branch }}-{{ checksum "requirements-dev.txt" }}
+      - run:
+          name: Install dev requirements
+          command: ./bin/install
+      - run:
+          name: Run the tests
+          command: ./bin/test
+      - save_cache:
+          key: kms-vault-tox-{{ .Branch }}-{{ checksum "requirements.txt" }}
+          paths:
+            - ./.tox
+      - save_cache:
+          key: kms-vault-{{ .Branch }}-{{ checksum "requirements-dev.txt" }}
+          paths:
+            - ./venv
+      # TODO: collect the xml and store it in artifacts && push to codecov
+
+  deploy:
+    docker:
+      - image: reelio/kms-vault:ci
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+            - kms-vault-{{ .Branch }}-{{ checksum "requirements-dev.txt" }}
+      - run:
+          name: Install dev requirements
+          command: ./bin/install
+      - run:
+          name: Deploy
+          command: ./bin/deploy
+
+workflows:
+  version: 2
+  build-envs:
+    jobs:
+      - test:
+          filters:
+            tags:
+              only: /.*/
+      - deploy:
+          requires:
+            - test
+          filters:
+            tags:
+              only:
+                - /[0-9](\.[0-9]+)*/
+            branches:
+              ignore: /.*/

@@ -1,6 +1,9 @@
 # Run this to validate this file:
   # curl --data-binary @codecov.yml https://codecov.io/validate
 
+codecov:
+  branch: master
+
 coverage:
   precision: 2
   round: down

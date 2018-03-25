@@ -38,23 +38,25 @@ class Vault(object):
         # value == 'supersecretvalue'
     """
 
-    def __init__(self, secrets_file, key_alias=None, prefix=None):
+    def __init__(self, secrets_file, key_alias=None, prefix=None, profile=None):
         self.secrets_file = secrets_file
         self.prefix = prefix or ''
         self.key_alias = key_alias
         self._secrets = None
         self._kms = None
+        self.profile = profile
 
     @property
     def kms(self):
         """Instantiate the boto kms client."""
         if self._kms is None:
-            self._kms = boto3.client(
-                'kms',
+            session = boto3.Session(
                 aws_access_key_id=os.getenv('KMS_ACCESS_KEY_ID'),
                 aws_secret_access_key=os.getenv('KMS_SECRET_ACCESS_KEY'),
-                region_name=os.getenv('KMS_REGION_NAME', 'us-east-1')
+                region_name=os.getenv('KMS_REGION_NAME', 'us-east-1'),
+                profile_name=self.profile
             )
+            self._kms = session.client('kms')
         return self._kms
 
     def decrypt_values(self, obj):

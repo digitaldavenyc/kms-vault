@@ -1,9 +1,7 @@
 CHANGES
 =======
 
-0.1.0
------
-
+* adds nose and cleans up tests
 * adds basic script functionality
 * point codecov to master
 * report coverage

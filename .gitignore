@@ -104,3 +104,4 @@ ENV/
 .vscode
 secrets.env
 reports/
+README.md

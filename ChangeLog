@@ -1,6 +1,12 @@
 CHANGES
 =======
 
+* Re-instate README.md
+* adds configurable encryption context
+
+0.1.2
+-----
+
 * Fixes setup
 * save xml reports for future reference
 

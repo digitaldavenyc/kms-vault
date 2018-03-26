@@ -38,13 +38,21 @@ class Vault(object):
         # value == 'supersecretvalue'
     """
 
-    def __init__(self, secrets_file, key_alias=None, prefix=None, profile=None):
+    def __init__(
+        self,
+        secrets_file,
+        key_alias=None,
+        prefix=None,
+        profile=None,
+        encryption_context=None
+    ):
         self.secrets_file = secrets_file
         self.prefix = prefix or ''
         self.key_alias = key_alias
         self._secrets = None
         self._kms = None
         self.profile = profile
+        self.encryption_context = encryption_context or {'vault': 'secrets'}
 
     @property
     def kms(self):
@@ -74,7 +82,8 @@ class Vault(object):
 
     def _decrypt(self, value):
         response = self.kms.decrypt(
-            CiphertextBlob=base64.b64decode(value)
+            CiphertextBlob=base64.b64decode(value),
+            EncryptionContext=self.encryption_context
         )
         return response['Plaintext'].decode('utf-8')
 
@@ -87,7 +96,8 @@ class Vault(object):
     def _encrypt(self, value):
         response = self.kms.encrypt(
             KeyId='alias/' + self.key_alias,
-            Plaintext=value
+            Plaintext=value,
+            EncryptionContext=self.encryption_context
         )
         return base64.b64encode(response['CiphertextBlob']).decode('utf-8')
 

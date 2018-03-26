@@ -100,5 +100,7 @@ ENV/
 # mypy
 .mypy_cache/
 
+# project specific config
 .vscode
 secrets.env
+reports/

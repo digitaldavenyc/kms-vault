@@ -24,6 +24,10 @@ jobs:
           command: |
             source venv/bin/activate
             codecov
+      - store_test_results:
+          path: ./reports
+      - store_artifacts:
+          path: ./reports
       - save_cache:
           key: kms-vault-tox-{{ .Branch }}-{{ checksum "requirements.txt" }}
           paths:

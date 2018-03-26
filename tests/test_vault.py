@@ -9,14 +9,7 @@ except ImportError:  # pragma: no cover
 
 from unittest import skipIf, TestCase
 from kms_vault import Vault
-
-
-def not_live():
-    return any([
-        os.environ.get('KMS_ACCESS_KEY_ID') is None,
-        os.environ.get('KMS_SECRET_ACCESS_KEY') is None,
-        os.environ.get('KMS_ALIAS') is None,
-    ])
+from .utils import not_live
 
 
 class VaultTests(TestCase):

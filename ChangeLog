@@ -1,4 +1,12 @@
 CHANGES
 =======
 
+0.1.0
+-----
+
+* adds basic script functionality
+* point codecov to master
+* report coverage
+* fixes ci commands
+* initial version
 * Initial commit

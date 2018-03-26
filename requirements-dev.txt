@@ -1,5 +1,5 @@
+-rrequirements-test.txt
 codecov==2.0.10
-coverage==4.4.2
 ipdb==0.10.3
 flake8==3.5.0
 flake8-chart==0.1.5
